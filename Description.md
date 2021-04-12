@@ -16,7 +16,7 @@ soccer 使用 edge detection
 ## 演算法
 ### color histogram 
 先將兩張圖片轉成一致的大小，而圖片由RGB三色所構成，我將兩張圖片切各分為Red、Green、Blue三個通道，並丟入cal_Color() 比較兩者各自的**Red相似度**、**Green相似度**以及**Blue相似度**，最後以 similiarity儲存相似值，而因為該值是RGB三色相似值的總和，因次需要除以3再回傳結果，此結果即為**圖形相似度**。
-```python=
+```python
 def compare_RGBhis(image1, image2, size):
     '''每個通道 (R,G,B) 的 histogram 相似度'''
     # 將圖片 resize 成一致的大小, size=(寬, 高)
@@ -38,7 +38,7 @@ def compare_RGBhis(image1, image2, size):
 ``` 
 
 將圖片轉為灰階圖像並畫出直方圖，再比較兩個直方圖中，每一條值的差異。若兩條值不同，則兩者相減取絕對值，並以取最大值作為分母，來得出相似度；若兩值相同則直接加一，最後，因為是將直方圖每一條的值加總計算相似度並存放於degree中，必須除以 橫軸 總數 ( =有幾條值 = 256條 )，除完之後即為**該顏色的相似度**。
-```python=
+```python
 def cal_Color(image1, image2):
     # 轉成灰階圖像
     hist1 = cv2.calcHist([image1], [0], None, [256], [0, 256])
@@ -55,7 +55,7 @@ def cal_Color(image1, image2):
 ```
 
 閾值的部份，我是分析每張圖計算下來的相似度之後，取0.8作為門檻，但好的做法應該是透過某種算式來決定門檻才正確。
-```python=
+```python
         result = compare_RGBhis(img1, img2, (300, 300))
         # result = compare_GrayHis(img1, img2)
         if (result < 0.8) :
@@ -68,14 +68,14 @@ def cal_Color(image1, image2):
 
 ![](https://i.imgur.com/6h7G5xB.png) ![](https://i.imgur.com/cGEJJBU.png)
 
-```python=
+```python
         edge_img1 = cv2.Canny(img1, 100, 200)
         edge_img2 = cv2.Canny(img2, 100, 200)
         result = compare_Edge(img1, img2)
 ```
 
 比較兩圖之間，每一格像素是否相同，若相同則相似度加一，存入same
-```python=
+```python
 def compare_Edge(img1, img2):
     weight1 = img1.shape[1]
     height1 = img1.shape[0]
@@ -92,7 +92,7 @@ def compare_Edge(img1, img2):
 ```
 
 閾值的部份，在看完所有圖片的相同像素量之後，選擇650 (低於650個相同像素量則判定為dissolve) 為門檻。
-```python=
+```python
         result = compare_Edge(img1, img2)
         if (result <= 650):
             print("Number:", strNum, "相同像素量:", result)
