@@ -1,6 +1,4 @@
 # Video Shot Change Detection
-
-> [time=Mon, Apr 12, 2021 1:38 PM]
 ###### tags: `Course`
 
 ## 作業說明
