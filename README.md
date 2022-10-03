@@ -12,6 +12,7 @@ IDE：PyCharm 2017.3.2
 
 ## Visual Feature
 news 及 ngc 使用 color histogram
+
 soccer 使用 edge detection
 
 ## 演算法
